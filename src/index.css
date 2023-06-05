@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  .carousel{
+    padding: 0rem;
+    color: #FFF;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .box{
+    background-color: white;
+    height: 157px; 
+    width: 100vw;
+  }
+  
+  .box h3{
+    text-align: center;
+  }
+  
+  .slick-slide div{ 
+    margin: 0 5px;
+  }
+  
+  .slick-next{
+    right: -22px !important;
+    border-radius: 5px;
+    padding-top: 1px;
+  }
+
+  .slick-dots li.slick-active button:before{
+    color: black !important;
+  }
+  
+  .slick-dots li button:before{
+    color: rgb(213, 195, 195) !important;
+    font-size: 1rem !important;
+    top: 2rem !important;
+  }
+
+body{
+    background: #ffeded;
+}
+
+.drop::before {
+  content: "";
+  z-index: 0;
+  position: absolute;
+  top: -0.4rem;
+  right: 1.8rem;
+  height: 20px;
+  width: 20px;
+  transform: rotate(45deg);
+  background-color: white;
+}
+
+.dropop::before {
+  content: "";
+  z-index: 0;
+  position: absolute;
+  top: 6.6rem;
+  right: 1.4rem;
+  height: 20px;
+  width: 20px;
+  transform: rotate(45deg);
+  background-color: white;
+}
+
+.container-scroll{
+  max-height: 800;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+/* Lebar dan Warna Scroll */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 26px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #655b5b;
+  border-radius: 12px;
+  padding-top: 20px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* border-radius: 2px; */
+}
+
+/* Animasi saat Scroll */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
+.show-logo{
+    background: url("../public/images/show.svg");
+    background-repeat: no-repeat;
+}
+
+.close-eye{
+    background: url("../public/images/close-eye.svg");
+    background-repeat: no-repeat;
+}
+
+.logo{
+    background: url("../public/images/logo.svg");
+    background-repeat: no-repeat;
+}
+
+.laptop-phone{
+    background: url("../public/images/laptop.svg");
+    background-repeat: no-repeat;
+}
+
+.orang{
+    background: url("../public/images/orang.png");
+    background-repeat: no-repeat;
+}
+
+#icon-image{
+    background: url("../public/images/icon-image.svg");
+    background-repeat: no-repeat;
+}
+
+.twiter{
+    background: url("../public/images/twiter.svg");
+    background-repeat: no-repeat;
+}
+
+.linkedin{
+    background: url("../public/images/linkedin.svg");
+    background-repeat: no-repeat;
+}
+
+.instagram{
+    background: url("../public/images/instagram.svg");
+    background-repeat: no-repeat;
+}
+
+.facebook{
+    background: url("../public/images/facebook.svg");
+    background-repeat: no-repeat;
+}
+
+.search{
+    background: url("../public/images/search.svg");
+    background-repeat: no-repeat;
+}
+
+.bckgrnd{
+    background: url("../public/images/bckgrnd-.png");
+    background-repeat: no-repeat;
+}
+
+.number{
+    background: url("../public/images/angka1.png");
+    background-repeat: no-repeat;
+}
+
+.loader {
+    display: block;
+    --height-of-loader: 4px;
+    --loader-color: #16192C;
+    width: 100%;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    background-color: rgba(0,0,0,0.2);
+    position: relative;
+  }
+  
+  .loader::before {
+    content: "";
+    position: absolute;
+    background: var(--loader-color);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 30px;
+    animation: moving 1s ease-in-out infinite;
+    ;
+  }
+  
+  @keyframes moving {
+    50% {
+      width: 100%;
+    }
+  
+    100% {
+      width: 0;
+      right: 0;
+      left: unset;
+    }
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  
+  .px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+
+  img.img-card {
+    border-radius: 12px 12px 0 0;
+    width: 100%;
+    height: 300px;
+  }
+
+  img.img-preview {
+    width: 100%;
+    height: 300px;
+    cursor: pointer;
+  }
+  
+  .card {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    color: #2e2d31;
+    background: #131313;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .temporary_text {
+    font-weight: bold;
+    font-size: 24px;
+    padding: 6px 12px;
+    color: #f8f8f8;
+  }
+  
+  .card_title {
+    font-weight: bold;
+  }
+  
+  .card_content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+      /* edit the width to fit card */
+    width: 100%;
+    padding: 20px;
+    background: #f2f2f2;
+    border-top-left-radius: 20px;
+      /* edit here to change the height of the content box */
+    transform: translateY(150px);
+    transition: transform .25s;
+  }
+  
+  .card_content::before {
+    content: '';
+    position: absolute;
+    top: -47px;
+    right: -45px;
+    width: 100px;
+    height: 100px;
+    transform: rotate(-175deg);
+    border-radius: 50%;
+    box-shadow: inset 48px 48px #f2f2f2;
+  }
+  
+  .card_title {
+    color: #131313;
+    line-height: 15px;
+  }
+  
+  .card_subtitle {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .card_description {
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  
+  .card:hover .card_content {
+    transform: translateY(0);
+  }
+  
+  .card:hover .card_description {
+    opacity: 1;
+    transition-delay: .25s;
+  }
+  
+  @media screen and (min-width:575px) {
+    .box{
+      height: 267px;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
