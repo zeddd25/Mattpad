@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import NavbarRegister from "../components/NavbarRegister";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import instance from "../api/api";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [number_phone, setNumber_phone] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +46,7 @@ const Register = () => {
     setLoading(true);
 
     if (
-      name === "" ||
+      username === "" ||
       email === "" ||
       password === "" ||
       number_phone === "" ||
@@ -57,7 +58,7 @@ const Register = () => {
       return false;
     } else {
       let data = new FormData();
-      data.append("name", name);
+      data.append("username", username);
       data.append("email", email);
       data.append("password", password);
       data.append("number_phone", number_phone);
@@ -66,12 +67,12 @@ const Register = () => {
 
       let config = {
         method: "post",
-        url: "https://c2ae-2001-448a-404f-79a7-e929-e36f-a55b-c9ea.ngrok-free.app/api/register",
+        url: "/register",
         headers: {},  
         data: data,
       };
 
-      axios
+      instance
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
@@ -90,9 +91,9 @@ const Register = () => {
       <NavbarRegister />
       {loading ? (
         <div className="flex justify-center items-center h-screen font-outfit">
-          <div className="rounded-xl bg-slate-50 relative mt-14 overflow-hidden shadow-2xl">
+          <div className="rounded-xl bg-slate-50 relative overflow-hidden shadow-2xl">
             <div className="loader absolute"></div>
-            <div className="bg-slate-50 rounded-xl h-[600px] w-[380px] p-6 stroke-black shadow-2xl flex flex-col">
+            <div className="bg-slate-50 rounded-xl h-[650px] w-[380px] p-6 stroke-black shadow-2xl flex flex-col">
               <p className="font-semibold text-[34px] text-center">Register</p>
               <div className="flex items-center gap-2 text-center text-slate-400">
                 <hr className="w-1/2" />
@@ -104,8 +105,8 @@ const Register = () => {
                   <p className="font-medium text-[16px]">Username</p>
                   <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     placeholder="awali dengan huruf besar"
                     className="w-full h-[45px] rounded-[6px] p-5 mt-[4px]"
                   />
@@ -163,7 +164,14 @@ const Register = () => {
                     placeholder="8+ karakter"
                     className="w-full h-[45px] rounded-[6px] p-5"
                   />
-                  <button className="w-full h-[50px] rounded-[38px] mt-7 bg-[#16192C] text-white">
+                <p className="w-full font-medium text-[16px] mt-2">Tanggal lahir</p>
+                <input
+                  type="date"
+                  value={tanggal_lahir}
+                  onChange={(e) => setTanggal_lahir(e.target.value)}
+                  className="w-full h-[45px] rounded-[6px] p-5 outline-black"
+                />
+                  <button className="w-full h-[50px] rounded-[38px] mt-2 bg-[#16192C] text-white">
                     Let's go
                   </button>
                 </div>
@@ -173,7 +181,7 @@ const Register = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center h-screen font-outfit">
-          <div className="bg-slate-50 rounded-xl mx-4 w-[380px] p-10 stroke-black shadow-2xl flex flex-col">
+          <div className="bg-slate-50 rounded-xl h-[650px] w-[380px] p-6 stroke-black shadow-2xl flex flex-col">
             <p className="font-semibold text-[40px] text-center">Register</p>
             <div className="flex items-center gap-2 text-center text-slate-400">
               <hr className="w-1/2" />
@@ -185,8 +193,8 @@ const Register = () => {
                 <p className="font-medium text-[16px]">Username</p>
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder="awali dengan huruf besar"
                   className="w-full h-[45px] rounded-[6px] p-5 mt-[4px] outline-black"
                 />

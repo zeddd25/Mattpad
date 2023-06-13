@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import React, { useState, useRef } from 'react';
 import Logout from "./Logout";
 
-const NavbarDashboard = () => {
+const NavbarAdmin = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef();
   const imgRef = useRef();
@@ -56,28 +56,17 @@ const NavbarDashboard = () => {
               <div className="logo w-[42px] h-[30px]"></div>
             </NavLink>
           </div>
-          <div className="flex items-center h-[35px] w-[251px] rounded-full pl-2 bg-white mr-4">
-            <BiSearch className="text-[30px]" />
-            <input
-              type="text"
-              placeholder="Search for stories"
-              className="outline-none text-lg rounded-full p-1 h-[35px] w-full"
-            />
-          </div>
+          
         </div>
-        <div className="flex  items-center px-2">
-          <NavLink to={"/create"}>
-            <button className="w-[103px] h-[35px] bg-black text-white rounded-full text-[12px] font-semibold ml-4">
-              Buat Cerita +
-            </button>
-          </NavLink>
+        <div className="flex items-center px-2">
+          
           <div className="flex flex-col px-4" onClick={toggleDropdown}>
           <span className="animate-bounce absolute h-[10px] w-[10px] right-6 rounded-full bg-[#31A24C]"></span>
             <img
               ref={imgRef}
-              src="../public/images/hengker.png"
+              src="https://cdn-icons-png.flaticon.com/512/600/600209.png"
               className="w-[35px] h-[35px] cursor-pointer object-cover rounded-full "
-              alt="profile"
+              alt="profile Admin"
             />
           </div>
         </div>
@@ -91,11 +80,8 @@ const NavbarDashboard = () => {
           <button className="text-gray-800 p-1 hover:bg-black hover:underline decoration-solid hover:text-white rounded-full w-full">
             <NavLink to={"/profile"}>Profil saya</NavLink>
           </button>
-          <div className="text-gray-800 p-1 rounded-full w-full">
+          <button className="text-gray-800 p-1 rounded-full w-full">
             <Logout />
-          </div>
-          <button className="text-gray-800 p-1 hover:bg-black hover:underline decoration-solid hover:text-white rounded-full w-full">
-          <NavLink to={"/about"}>about us</NavLink>
           </button>
         </div>
       )}
@@ -103,4 +89,4 @@ const NavbarDashboard = () => {
   );
 };
 
-export default NavbarDashboard;
+export default NavbarAdmin;

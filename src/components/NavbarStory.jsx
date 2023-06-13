@@ -1,22 +1,19 @@
+import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 
 const NavbarStory = () => {
   return (
-    <div className=" w-full h-[55px] flex justify-around items-center font-outfit shadow-sm">
-      <div className="text-[24px] flex gap-1 font-bold">
-        <NavLink to={"/"}>Mattpad</NavLink>
-        <NavLink to={"/"}>
-          <div className="logo w-[42px] h-[30px]"></div>
-        </NavLink>
-      </div>
-      <div className="text-[18px] font-light">
-          <NavLink to={"/create"}>
-            <button className="w-[103px] h-[35px] bg-black text-white rounded-full text-[12px] font-semibold ml-4">
-              Buat Cerita +
-            </button>
-          </NavLink>
-      </div>
+    <nav className='font-outfit p-5 flex items-center justify-between h-[55px] shadow-sm'>
+    <NavLink to={"/dashboard"}>
+    <IoIosArrowBack className="text-4xl"/>
+    </NavLink>
+    <div className="text-[24px] font-bold flex gap-1 ml-4">
+    <NavLink to={"/dashboard"}>Mattpad</NavLink>
+    <NavLink to={"/dashboard"}>
+    <div className="logo w-[42px] h-[30px]"></div>
+    </NavLink>
     </div>
+    </nav>
   );
 };
 

@@ -2,6 +2,7 @@ import NavbarLogin from "../components/NavbarLogin";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import instance from "../api/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,18 +42,18 @@ const Login = () => {
 
     const config = {
       method: "post",
-      url: "https://c2ae-2001-448a-404f-79a7-e929-e36f-a55b-c9ea.ngrok-free.app/api/login",
+      url: "/login",
       data: data,
     };
 
-    axios
+    instance
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setLoading(false);
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("userName", response.data.user.name);
+          localStorage.setItem("userName", response.data.user.username);
           navigate("/dashboard");
         } else {
           alert("Email atau Password salah");
@@ -132,7 +133,7 @@ const Login = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center h-screen font-outfit">
-          <div className="bg-slate-50 rounded-xl mx-4 p-10 lg:p-14 stroke-black shadow-2xl flex flex-col justify-center">
+          <div className="bg-slate-50 rounded-xl h-[500px] w-[380px] p-6 stroke-black shadow-2xl flex flex-col justify-center">
             <p className="font-semibold text-[40px] mb-10 text-center">
               Log in
             </p>

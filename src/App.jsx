@@ -9,6 +9,10 @@ import Form from "./components/Form";
 import Notfound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Story from "./pages/Story";
+import Edit from "./pages/Edit";
+import Admin from "./pages/Admin";
+import AboutUs from "./pages/AboutUs";
+import SelectCategory from "./components/SelectCategory";
 
 const App = () => {
   return (
@@ -21,7 +25,11 @@ const App = () => {
         <Route path="/create" element={<Create />} />
         <Route path="/form" element={<Form />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/story" element={<Story />} />
+        <Route path="/story/:id" element={<Story />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/select" element={<SelectCategory />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
     </Router>

@@ -91,10 +91,6 @@ const Carousel = () => {
       </div> 
       <div className="flex flex-col gap-5 w-full">
         <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
       </div>
       <footer className="lg:py-4 lg:mt-10 py-16">
       <div className="mx-auto flex flex-col items-center">

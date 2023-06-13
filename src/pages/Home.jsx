@@ -28,7 +28,7 @@ const Home = () => {
           <div className="flex items-center text-[14px] font-semibold gap-1 text-[#242423]">
             <NavLink to={"/login"}>Masuk</NavLink>
             <FiArrowUpRight />
-            <NavLink to={"/register"}>Daftar</NavLink>
+            <NavLink to={"/register"}>Daftar</NavLink>  
             <FiArrowUpRight />
           </div>
         </nav>
@@ -113,7 +113,7 @@ const Home = () => {
               </div>
 
               <div className="flex justify-center items-center" data-aos="zoom-in">
-                <img src="../public/images/notebook.svg" alt="" />
+                <img src="../src/assets/notebook.svg" alt="" />
               </div>
             </div>
           </div>

@@ -67,7 +67,7 @@ body{
   content: "";
   z-index: 0;
   position: absolute;
-  top: 6.6rem;
+  top: 9rem;
   right: 1.4rem;
   height: 20px;
   width: 20px;
@@ -105,57 +105,23 @@ body{
 }
 
 .show-logo{
-    background: url("../public/images/show.svg");
+    background: url("../src/assets/show.svg");
     background-repeat: no-repeat;
 }
 
 .close-eye{
-    background: url("../public/images/close-eye.svg");
+    background: url("../src/assets/close-eye.svg");
     background-repeat: no-repeat;
 }
 
 .logo{
-    background: url("../public/images/logo.svg");
+    background: url("../src/assets/logo.svg");
     background-repeat: no-repeat;
 }
 
-.laptop-phone{
-    background: url("../public/images/laptop.svg");
-    background-repeat: no-repeat;
-}
 
 .orang{
     background: url("../public/images/orang.png");
-    background-repeat: no-repeat;
-}
-
-#icon-image{
-    background: url("../public/images/icon-image.svg");
-    background-repeat: no-repeat;
-}
-
-.twiter{
-    background: url("../public/images/twiter.svg");
-    background-repeat: no-repeat;
-}
-
-.linkedin{
-    background: url("../public/images/linkedin.svg");
-    background-repeat: no-repeat;
-}
-
-.instagram{
-    background: url("../public/images/instagram.svg");
-    background-repeat: no-repeat;
-}
-
-.facebook{
-    background: url("../public/images/facebook.svg");
-    background-repeat: no-repeat;
-}
-
-.search{
-    background: url("../public/images/search.svg");
     background-repeat: no-repeat;
 }
 

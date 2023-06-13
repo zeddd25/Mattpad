@@ -1,28 +1,66 @@
 import React, { useState } from 'react';
-import NavbarCreate from '../components/NavbarCreate';
+import NavbarEdit from '../components/NavbarEdit';
 import { AiOutlineFileImage } from 'react-icons/ai';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import SelectCategory from '../components/SelectCategory';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import instance from '../api/api';
 
-const Create = () => {
-  const [photo, setPhoto] = useState(null);
+const Edit = () => {
   const [image, setImage] = useState(null);
   const [judul, setJudul] = useState('');
   const [deskripsi, setDeskripsi] = useState('');
   const [gambar, setGambar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
-  const [category_id, setCategory_id] = useState();
   const navigate = useNavigate();
+  let { id } = useParams(); 
 
-  const onCategoryChange = (category_id) => {
-    setCategory_id(category_id);
-  };
+  useEffect(() => {
+    setIsLoading(true);
+    const getData = () => {
+    let config = {
+    method: "post",
+        maxBodyLength: Infinity,
+        url: `/detail-post/${id}`,
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")} `,
+        
+    },
+    }
 
-  const fileChangeHandler = (e) => {
-    setPhoto(e.target.files[0]);
+    instance
+    .request(config)
+    .then((response) => {
+        setIsLoading(false)
+        console.log(response.data);
+        setJudul(response.data[0].judul);
+        setDeskripsi(response.data[0].deskripsi);
+        setImage(response.data[0].gambar);
+        fetch(response.data[0].gambar)
+            .then((response) => response.blob())
+            .then((res) => {
+                const file = new File([res], "image", {type: res.type});
+                setGambar(file)
+            });
+    }) 
+    .catch((error) => {
+        console.log(error);
+        setIsLoading(false)
+    });
+    };
+    getData();
+  }, []);
+
+  const handleJudulChange = (e) => {
+    setJudul(e.target.value)
+  }
+
+  const handleDeskripsiChange = (e) => {
+    setDeskripsi(e.target.value)
+  }
+
+    const fileChangeHandler = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
     setGambar(e.target.files[0]);
   };
@@ -35,55 +73,54 @@ const Create = () => {
       return;
     }
 
-    if (photo.size > 2097152) {
+    if (gambar.size > 2097152) {
       // 3145728 byte = 3 MB
-      alert("Ukuran file gambar tidak boleh melebihi 2MB!");
+      alert("Ukuran file gambar tidak boleh melebihi 3MB!");
       setButtonStatus("Tambah");
       return;
     }
 
     setIsLoading(true);
 
-    let data = new FormData();
-    data.append('judul', judul);
-    data.append('deskripsi', deskripsi);
-    data.append('gambar', gambar);
-    data.append('category_id', category_id); 
-
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: '/create',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'multipart/form-data',
-      },
-      data: data,
+    const token = localStorage.getItem("token");
+    const endpoint = `/edit/${id}`
+    const config = {
+        headers: {
+        Authorization: `Bearer ${token}`,
+            
+        },
     };
 
+    const formData = new FormData();
+    formData.append("judul", judul);
+    formData.append("deskripsi", deskripsi)
+    formData.append("gambar", gambar)
+    
+
     instance
-      .request(config)
+      .post(endpoint, formData, config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setResponseMessage('Selamat Cerita anda berhasil dibuat!');
+        console.log(response.data);
+        setResponseMessage('Selamat Cerita anda berhasil di Update!');
         setIsLoading(false);
-        navigate(`/dashboard`);
+        navigate("/profile")
       })
       .catch((error) => {
-        console.log(error);
-        setResponseMessage('Terjadi kesalahan saat membuat cerita.');
+        console.log(error.response.data);
+        setResponseMessage('Terjadi kesalahan saat mengupdate cerita.');
         setIsLoading(false);
       });
   };
+ 
 
   return (
     <form onSubmit={handleSubmit}>
-      <NavbarCreate />
+      <NavbarEdit />
       <div className="font-outfit flex justify-center items-center mt-2">
         {image ? (
           <img
-            className="w-[130px] h-[196px] flex justify-center items-center object-cover cursor-pointer"
-            src={image ? image : photo === null}
+            className="w-[130px] h-[196px] flex justify-center items-center object-cover"
+            src={image ? image : gambar === null}
             onClick={() => {
               document.querySelector('#input-file').click();
             }}
@@ -91,7 +128,7 @@ const Create = () => {
           />
         ) : (
           <div
-            className="flex flex-col text-center justify-center items-center w-[130px] h-[196px] border rounded-md cursor-pointer bg-[#EFEFEF]"
+            className="flex flex-col text-center justify-center items-center w-[130px] h-[196px] border rounded-md bg-[#EFEFEF]"
             onClick={() => {
               document.querySelector('#input-file').click();
             }}
@@ -111,7 +148,7 @@ const Create = () => {
             className="w-full h-full rounded-md border outline-none p-2"
             type="text"
             value={judul}
-            onChange={(e) => setJudul(e.target.value)}
+            onChange={handleJudulChange}
             placeholder="Cerita tak berjudul"
           />
           <p>Isi Cerita</p>
@@ -120,9 +157,8 @@ const Create = () => {
             cols="30"
             rows="10"
             value={deskripsi}
-            onChange={(e) => setDeskripsi(e.target.value)}
+            onChange={handleDeskripsiChange}
           ></textarea>
-          <SelectCategory onCategoryChange={onCategoryChange} />
         </div>
       </div>
       <div className="font-outfit flex justify-center items-center">
@@ -131,7 +167,7 @@ const Create = () => {
           type="submit"
           disabled={isLoading}
         >
-          {isLoading ? 'Loading...' : 'Buat Cerita'}
+          {isLoading ? 'Loading...' : 'Update Cerita'}
         </button>
       </div>
       {responseMessage && (
@@ -143,4 +179,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;

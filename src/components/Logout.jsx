@@ -63,7 +63,7 @@ const Logout = () => {
       </Modal>
       <button 
       onClick={() => setIsOpen(true)}
-      className="flex justify-center text-gray-800 p-1 hover:bg-black hover:text-white hover:underline decoration-solid rounded-full w-full h-full">
+      className="flex justify-center text-gray-800 p-1 rounded-full hover:bg-black hover:text-white hover:underline decoration-solid w-full h-full">
       Logout
     </button>
     </div>

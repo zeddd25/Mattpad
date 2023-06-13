@@ -1,35 +1,48 @@
-import React, { useState } from 'react';
-import { AiOutlineUserAdd, AiFillCamera, AiFillEdit, AiTwotoneDelete } from 'react-icons/ai';
+import React, { useState, useEffect } from 'react';
+import { AiOutlineUserAdd, AiFillCamera, AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
 import { IoIosArrowBack } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
-import { Card, CardLong } from '../components/Card';
+import { Card } from '../components/Card';
+import axios from 'axios';
+import instance from '../api/api';
 
 const Profile = () => {
+  const [data, setData] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [image, setImage] = useState(null);
-  const [username, setUsername] = useState('@romy yuza');
-  const [editingUsername, setEditingUsername] = useState(false);
 
   const fileChangeHandler = (e) => {
     setPhoto(e.target.files[0]);
     setImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
 
-  const toggleEditUsername = () => {
-    setEditingUsername(!editingUsername);
-  };
+  useEffect(() => {
+    const getData = () => {
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `/user`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")} `,
+        },
+      };
 
-  const handleUsernameSubmit = (e) => {
-    e.preventDefault();
-    // Perform API call or update the user data in the backend
-    toggleEditUsername();
-  };
+      instance
+        .request(config)
+        .then((response) => {
+          setData([response.data]);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getData();
+  }, []);
 
   const userName = localStorage.getItem("userName")
+
 
   return (
     <div className="font-outfit flex flex-col items-center">
@@ -40,7 +53,6 @@ const Profile = () => {
         <div className="flex items-center text-[14px] font-semibold gap-1 text-[#242423]">
           <button
             className="w-[120px] h-[40px] bg-black text-white rounded-full"
-            onClick={toggleEditUsername}
           >
             Edit Profil
           </button>
@@ -48,42 +60,16 @@ const Profile = () => {
       </nav>
 
       {/* Profile picture */}
-      <div className="relative w-full h-[250px]">
-        {/* Overlay */}
-        {editingUsername && (
-          <div className="absolute inset-0 flex flex-col gap-2 justify-center items-center bg-black bg-opacity-50">
-            <button
-              onClick={() => {
-                document.querySelector("#input-file").click();
-              }}
-            >
-              <div className="px-2 py-2 w-full flex gap-[5px] items-center bg-black rounded-md text-white border border-white">
-                <AiFillCamera className="text-lg"/>
-                <p>Ubah gambar latar belakang</p>
-              </div>
-            </button>
-            <form onSubmit={handleUsernameSubmit} className="flex flex-col gap-2 text-white">
-              <input
-                type="text"
-                value={username}
-                onChange={handleUsernameChange}
-                className="px-2 py-2 w-full bg-transparent border border-white rounded-md focus:outline-none"
-              />
-              <button type="submit" className="px-2 py-2 w-full border bg-black text-white rounded-md">
-                Simpan
-              </button>
-            </form>
-          </div>
-        )}
-
-        {/* Profile Picture */}
+      {data?.map((item) => {
+      return (
+      <div className="relative w-full h-[250px]" key={item.User.id}>
         <div className="flex justify-center items-center w-full h-[250px] bg-gradient-to-b from-[#F7E1D2] to-[#FFEDED]">
           <div className="font-outfit flex flex-col mb-1 justify-center items-center rounded-full">
             {image ? (
               <img
                 className="w-[125px] object-cover h-[125px] border border-black rounded-full flex justify-center items-center"
-                src={image}
-                alt=""
+                src={item.User.gambar}
+                alt="foto.profile"
               />
             ) : (
               <div
@@ -92,56 +78,34 @@ const Profile = () => {
                   document.querySelector("#input-file").click();
                 }}
               >
-                <AiOutlineUserAdd className='text-3xl'/>
+                <AiOutlineUserAdd className='text-2xl'/>
               </div>
             )}
-            <h1 className="font-outfit text-center text-[24px] flex mb-5">{username}</h1>
-            <div className="flex gap-7">
-              <div className="flex flex-col items-center leading-3">
-                <p>3</p>
-                <p>karya</p>
+            <h1 className="font-outfit text-center text-[24px] flex mb-5">{item.User.email}</h1>
+            <div className="flex gap-12">
+              <div className="flex flex-col gap-2 items-center leading-3">
+                <p>{item.User.number_phone}</p>
+                <p>no handphone</p>
               </div>
-              <div className="flex flex-col items-center leading-3">
-                <p>13</p>
-                <p>disukai</p>
+            <div className="flex flex-col gap-2 items-center leading-3">
+              <p>{item["Jumlah Post"]}</p>
+              <p>postingan</p>
               </div>
-              <div className="flex flex-col items-center leading-3">
-                <p>9</p>
-                <p>komentar</p>
+              <div className="flex flex-col gap-2 items-center leading-3">
+                <p>{item.User.tanggal_lahir}</p>
+                <p>tanggal lahir</p>
               </div>
             </div>
             <input hidden type="file" id="input-file" onChange={fileChangeHandler} />
           </div>
         </div>
+        <hr className='border-1 border-[#F7E1D2]' />
       </div>
-
-      {/* Table code */}
-      <div className="w-full text-center">
-        <h2 className="font-outfit text-2xl mt-8 mb-4 px-2">Daftar Buku</h2>
-        <div className="flex gap-4 justify-center">
-        <div>
-        <CardLong
-          title="Judul Buku 3"
-          description="Romance"
-          image="https://img.wattpad.com/cover/285086938-100-k948675.jpg"
-        />
-        </div>
-        <div>
-        <CardLong
-          title="Judul Buku 3"
-          description="Romance"
-          image="https://img.wattpad.com/cover/285086938-100-k948675.jpg"
-        />
-        </div>
-        <div>
-        <CardLong
-          title="Judul Buku 3"
-          description="Romance"
-          image="https://img.wattpad.com/cover/285086938-100-k948675.jpg"
-        />
-        </div>
-
-        </div>
+          );
+        })}
+       <h1 className='text-2xl tracking-tighter mt-5 capitalize'>Cerita oleh {userName}</h1>
+      <div className="max-w-4xl flex overflow-y-scroll justify-center items-start h-[480px] text-center p-2 gap-2 flex-wrap ">
+      <Card />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io"
 import { NavLink } from "react-router-dom"
 
-const NavbarCreate = () => {
+const NavbarEdit = () => {
   return (
     <nav className='font-outfit p-5 flex items-center justify-between h-[55px] shadow-sm'>
     <NavLink to={"/dashboard"}>
@@ -17,4 +17,4 @@ const NavbarCreate = () => {
   )
 }
 
-export default NavbarCreate
+export default NavbarEdit

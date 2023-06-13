@@ -7,7 +7,7 @@ const Notfound = () => {
         <h1 className="text-3xl font-bold text-gray-900">
         Ups!!   
         </h1>
-        <img src="../public/images/typo.svg" alt="gambar no internet" />
+        <img src="../src/assets/typo.svg" alt="gambar no internet" />
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
         Page not Found!!!   
         </h1>

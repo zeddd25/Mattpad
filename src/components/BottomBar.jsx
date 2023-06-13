@@ -76,8 +76,11 @@ const BottomBar = () => {
           <button className="text-gray-800 p-1 hover:bg-black hover:text-white hover:underline decoration-solid rounded-full w-full">
             <NavLink to={"/profile"}>Profil saya</NavLink>
           </button>
-          <button className="text-gray-800 p-1 rounded-full w-full">
+          <div className="text-gray-800 p-1 rounded-full w-full">
             <Logout />
+          </div>
+          <button className="text-gray-800 p-1 hover:bg-black hover:underline decoration-solid hover:text-white rounded-full w-full">
+          <NavLink to={"/about"}>about us</NavLink>
           </button>
         </div>
       )}
